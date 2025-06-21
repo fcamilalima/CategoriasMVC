@@ -1,4 +1,5 @@
 using CategoriasMVC.Services;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,17 @@ builder.Services.AddHttpClient("CategoriasAPI", options =>
 {
     options.BaseAddress = new Uri(builder.Configuration["ServicesUri:Categorias"]); 
 });
+
+builder.Services.AddHttpClient("AutenticaAPI", options =>
+{
+    options.BaseAddress = new Uri(builder.Configuration["ServicesUri:AutenticaAPI"]);
+    options.DefaultRequestHeaders.Accept.Clear();
+    options.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue("application/json"));
+});
+
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<IAutenticacao, Autenticacao>();
 
 var app = builder.Build();
 
