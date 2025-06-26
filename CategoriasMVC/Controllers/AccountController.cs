@@ -42,6 +42,6 @@ public class AccountController : Controller
             SameSite = SameSiteMode.Strict
         });
 
-        return RedirectToAction("/");
+        return RedirectToAction("Index", "Home");
     }
 }

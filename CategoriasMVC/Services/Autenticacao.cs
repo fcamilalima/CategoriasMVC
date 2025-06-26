@@ -7,7 +7,7 @@ namespace CategoriasMVC.Services;
 public class Autenticacao : IAutenticacao
 {
     private readonly IHttpClientFactory _clientFactory;
-    const string apiEndpointAutenticacao = "api/Auth/login";
+    const string apiEndpointAutenticacao = "api/Auth/login?api-version=1";
 
     private readonly JsonSerializerOptions _options;
     private TokenViewModel _tokenUsuario;
