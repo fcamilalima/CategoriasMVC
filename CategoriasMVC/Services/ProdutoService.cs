@@ -1,4 +1,5 @@
 ﻿using CategoriasMVC.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -8,7 +9,7 @@ namespace CategoriasMVC.Services;
 public class ProdutoService : IProdutoService
 {
     private readonly IHttpClientFactory _clientFactory;
-    const string apiEndpointProdutos = "api/Produtos?api-version=1";
+    const string apiEndpointProdutos = "api/v1/Produtos/";
     private readonly JsonSerializerOptions _options;
     private ProdutoViewModel _produtoVM;
     private IEnumerable<ProdutoViewModel> _produtosViewModel;
@@ -19,6 +20,7 @@ public class ProdutoService : IProdutoService
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
+    [HttpGet]
     public async Task<IEnumerable<ProdutoViewModel>> GetProdutos(string token)
     {
         var client = _clientFactory.CreateClient("ProdutosAPI");
@@ -45,7 +47,7 @@ public class ProdutoService : IProdutoService
         var client = _clientFactory.CreateClient("ProdutosAPI");
         PutTokenInHeaderAuthorization(token, client);
 
-        using(var response = await client.GetAsync($"{apiEndpointProdutos}/{id}"))
+        using(var response = await client.GetAsync($"{apiEndpointProdutos}{id}"))
         {
             if (response.IsSuccessStatusCode)
             {
@@ -89,7 +91,7 @@ public class ProdutoService : IProdutoService
         var client = _clientFactory.CreateClient("ProdutosAPI");
         PutTokenInHeaderAuthorization(token, client);
 
-        using(var response = await client.PutAsJsonAsync($"{apiEndpointProdutos}/{id}", produto))
+        using(var response = await client.PutAsJsonAsync($"{apiEndpointProdutos}{id}", produto))
         {
             if (response.IsSuccessStatusCode)
             {
@@ -108,7 +110,7 @@ public class ProdutoService : IProdutoService
         var client = _clientFactory.CreateClient("ProdutosAPI");
         PutTokenInHeaderAuthorization(token, client);
 
-        using (var response = await client.DeleteAsync($"{apiEndpointProdutos}/{id}"))
+        using (var response = await client.DeleteAsync($"{apiEndpointProdutos}{id}"))
         {
             if (response.IsSuccessStatusCode)
             {

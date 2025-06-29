@@ -22,7 +22,7 @@
                 <th>@Html.DisplayNameFor(Model => Model.Nome)</th>
                 <th>@Html.DisplayNameFor(Model => Model.Descricao)</th>
                 <th>@Html.DisplayNameFor(Model => Model.Preco)</th>
-                <th>@Html.DisplayNameFor(Model => Model.ImagemUrl)</th>
+                <th>@Html.DisplayNameFor(Model => Model.ImagemURL)</th>
             </tr>
         </thead>
         <tbody>
@@ -32,16 +32,16 @@
                     <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                     <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
                     <td>@Html.DisplayFor(modelItem => item.Preco)</td>
-                    <td>@Html.DisplayFor(modelItem => item.ImagemUrl)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ImagemURL)</td>
                     <td>
-                        <a asp-action="AtualizarProduto" asp-rout-id="@item.ProdutoId" title="Editar" class="btn btn-warning">
+                        <a asp-action="AtualizarProduto" asp-route-id="@item.ProdutoId" title="Editar" class="btn btn-warning">
                             <span class="fas fa-edit"></span> 
                         </a>
-                        <a asp-action="DeletarProduto" asp-rout-id="@item.ProdutoId" title="Deletar" class="btn btn-danger">
+                        <a asp-action="DeletarProduto" asp-route-id="@item.ProdutoId" title="Deletar" class="btn btn-danger">
                             <span class="fas fa-trash-alt"></span> 
                         </a>
-                        <a asp-action="DetalhesProduto" asp-rout-id="@item.ProdutoId" title="Detalhes" class="btn btn-success">
-                            <span class="fas fa-trash-alt"></span>
+                        <a asp-action="DetalhesProduto" asp-route-id="@item.ProdutoId" title="Detalhes" class="btn btn-success">
+                            <span class="fas fa-check"></span>
                         </a>
                     </td>
                 </tr>

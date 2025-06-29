@@ -6,7 +6,7 @@ namespace CategoriasMVC.Services
 {
     public class CategoriaService : ICategoriaService
     {
-        private const string apiEndpoint = "/api/categorias/";
+        private const string apiEndpointCategorias = "/api/v1/Categorias/";
         private readonly JsonSerializerOptions _options;
         private readonly IHttpClientFactory _clientFactory;
 
@@ -27,7 +27,7 @@ namespace CategoriasMVC.Services
             var client = _clientFactory.CreateClient("CategoriasAPI");
 
             using (var response = await client
-                .PutAsJsonAsync(apiEndpoint + id, categoriaVM))
+                .PutAsJsonAsync($"{apiEndpointCategorias}{id}", categoriaVM))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -47,7 +47,7 @@ namespace CategoriasMVC.Services
             var categoria = JsonSerializer.Serialize(categoriaVM);
             StringContent content = new StringContent(categoria, Encoding.UTF8, "application/json");
 
-            using (var response = await client.PostAsync(apiEndpoint, content))
+            using (var response = await client.PostAsync(apiEndpointCategorias, content))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -67,7 +67,7 @@ namespace CategoriasMVC.Services
         {
             var client = _clientFactory.CreateClient("CategoriasAPI");
 
-            using (var response = await client.DeleteAsync(apiEndpoint + id))
+            using (var response = await client.DeleteAsync($"{apiEndpointCategorias}{id}"))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -81,7 +81,7 @@ namespace CategoriasMVC.Services
         {
             var client = _clientFactory.CreateClient("CategoriasAPI");
 
-            using (var response = await client.GetAsync(apiEndpoint + id))
+            using (var response = await client.GetAsync($"{apiEndpointCategorias}{id}"))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -101,7 +101,7 @@ namespace CategoriasMVC.Services
         {
             var client = _clientFactory.CreateClient("CategoriasAPI");
 
-            using (var response = await client.GetAsync(apiEndpoint))
+            using (var response = await client.GetAsync(apiEndpointCategorias))
             {
                 if (response.IsSuccessStatusCode)
                 {

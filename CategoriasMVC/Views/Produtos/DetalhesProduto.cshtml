@@ -1,0 +1,49 @@
+﻿@model ProdutoViewModel
+
+<h3>Detalhes Produto</h3>
+
+<input type="hidden" asp-for="ProdutoId" />
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Preco, "{0:C}")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImagemURL)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model=>model.ImagemURL)
+        </dd>
+    </dl>
+    <div class="row">
+        <div class="form-group col-md-6" style="padding-top: 10px">
+            @if (string.IsNullOrEmpty(Model.ImagemURL))
+            {
+                <img src="~/images/noimage1.png" class="img-thumbnail" alt="Imagem do Produto" />
+            }
+            else
+            {
+                <img src="@Model.ImagemURL" class="img-thumbnail" alt="Imagem do Produto" />
+            }
+        </div>
+    </div>
+    <div class="form-group" style="padding-top: 10px">
+        <a asp-action="Index" class="btn btn-info">Retornar</a>
+    </div>
+</div>
