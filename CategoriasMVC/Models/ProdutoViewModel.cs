@@ -14,9 +14,10 @@ public class ProdutoViewModel
     [Required(ErrorMessage = "Informe o preço do produto.")]
 
     public decimal Preco { get; set; }
+
     [Required(ErrorMessage = "Informe o caminho da imagem do produto.")]
     [Display(Name = "Caminho da Imagem")]
-    public string? ImagemUrl { get; set; }
+    public string? ImagemURL { get; set; }
 
     [Display(Name = "Categoria")]
     public int CategoriaId { get; set; }

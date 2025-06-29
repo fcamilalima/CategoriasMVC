@@ -1,0 +1,49 @@
+﻿@model ProdutoViewModel
+
+<h3>Confirma a exclusão deste produto</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Preco, "{0:C}")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImagemURL)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImagemURL)
+        </dd>
+        <div class="row">
+            <div class="form-group col-md-6" style="padding-top: 10px">
+                @if (string.IsNullOrEmpty(Model.ImagemURL))
+                {
+                    <img src="/images/noimage1.png" alt="Imagem do Produto" class="img-thumbnail" />
+                }
+                else
+                {
+                    <img src="@Model.ImagemURL" alt="Imagem do Produto" class="img-thumbnail" />
+                }
+            </div>
+        </div>
+    </dl>
+    <form asp-action="DeletarProduto" style="padding-top: 10px">
+        <input type="hidden" asp-for="ProdutoId" />
+        <input type="submit" value="Deletar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-info">Retornar</a>
+    </form>
+</div>

@@ -30,8 +30,8 @@ public class ProdutosController : Controller
     [HttpGet]
     public async Task<IActionResult> CriarNovoProduto()
     {
-        ViewBag.CategoriasId = new SelectList(
-            await _categoriaService.GetCategoriasAsync(), "CategoriaId", "Nome");
+        ViewBag.CategoriasID = new SelectList(
+            await _categoriaService.GetCategoriasAsync(), "CategoriaID", "Nome");
         return View();
     }
 
@@ -39,13 +39,59 @@ public class ProdutosController : Controller
     public async Task<IActionResult> DetalhesProduto(int id)
     {
         var produto = await _produtoService.GetProdutoPorId(id, ObtemTokenJwt());
+
+        if (produto is null)
+            return View("Error");
+
+        ViewBag.CategoriasID = new SelectList(
+            await _categoriaService.GetCategoriasAsync(), "CategoriaID", "Nome");
+
+        return View(produto);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> AtualizarProduto(int id)
+    {
+        var produto = await _produtoService.GetProdutoPorId(id, ObtemTokenJwt());
         if (produto is null)
         {
             return View("Error");
         }
+        ViewBag.CategoriasID = new SelectList(
+            await _categoriaService.GetCategoriasAsync(), "CategoriaID", "Nome");
         return View(produto);
     }
 
+    [HttpGet]
+    public async Task<ActionResult> DeletarProduto(int id)
+    {
+        var produto = await _produtoService.GetProdutoPorId(id, ObtemTokenJwt());
+        if (produto is null)
+            return View("Error");
+
+        return View(produto);
+    }
+
+    [HttpPost(), ActionName("DeletarProduto")]
+    public async Task<IActionResult> DeletaConfirmado(int id)
+    {
+        var produto = await _produtoService.DeletaProduto(id, ObtemTokenJwt());
+        if (produto)
+            return RedirectToAction(nameof(Index));
+        return View("Error");
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ProdutoViewModel>> AtualizarProduto(int id, ProdutoViewModel produtoViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            var result = await _produtoService.AtualizaProduto(id, produtoViewModel, ObtemTokenJwt());
+            if (result)
+                return RedirectToAction(nameof(Index));
+        }
+        return View(produtoViewModel);
+    }
     [HttpPost]
     public async Task<ActionResult> CriarNovoProduto(ProdutoViewModel produtoViewModel)
     {
